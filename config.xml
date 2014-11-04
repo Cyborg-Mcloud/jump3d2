@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+		xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.designge.jump3d"
+	    versionCode="17" 
+        version   = "1.0.1"
+		package="com.designge.jump3d"
+		>
+    <name>Jump3D</name>
+	<icon src="jump_icon.png" />
+
+	<preference name="phonegap-version" value="3.6.3" />
+    <description>
+     jump 3D game with kinekt elements
+    </description>
+	
+
+    <author href="http://design.ge" email="uabashidze@gmail.com">
+        Cyborg-Mcloud
+    </author>
+
+ 
+    <!--<preference name="loglevel" value="DEBUG" />-->
+    <!--
+      <preference name="splashscreen" value="resourceName" />
+      <preference name="backgroundColor" value="0xFFF" />
+      <preference name="loadUrlTimeoutValue" value="20000" />
+      <preference name="InAppBrowserStorageEnabled" value="true" />
+      <preference name="disallowOverscroll" value="true" />
+    -->
+
+  
+    <!-- Deprecated plugins element. Remove in 3.0 -->
+    <plugins>
+
+    </plugins>
+	<feature name="http://api.phonegap.com/1.0/network"/>
+
+<feature name="http://api.phonegap.com/1.0/file"/>
+<feature name="http://api.phonegap.com/1.0/filetransfer"/>
+<!--	<feature name="FileTransfer" value="org.apache.cordova.FileTransfer" />-->
+
+	<feature name="App">
+	  <param name="android-package" value="com.designge.jump3d"/>
+	</feature>
+	<!--
+<feature name="NetworkStatus">
+    <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    <param name="ios-package" value="CDVConnection" />
+</feature>
+
+<feature name="Geolocation">
+    <param name="android-package" value="org.apache.cordova.geolocation" />
+    <param name="ios-package" value="CDVLocation" />
+</feature>
+
+-->
+
+	<gap:plugin name="org.apache.cordova.file" />
+	<gap:plugin name="org.apache.cordova.network-information" />
+	<gap:plugin name="org.apache.cordova.file-transfer" />
+	
+	
+<!--
+	<gap:platform name="ios" />
+	<gap:platform name="android" />
+	<gap:platform name="winphone" />-->
+
+
+
+<preference name="Orientation" value="landscape" />
+
+</widget>
