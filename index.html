@@ -43,6 +43,47 @@ function onResume()
 	}
 
 
+function getscreenw()
+	{	
+	var winW = 640, winH = 460;
+	if (document.body && document.body.offsetWidth) {
+	 winW = document.body.offsetWidth;
+	}
+	if (document.compatMode=='CSS1Compat' &&
+		document.documentElement &&
+		document.documentElement.offsetWidth ) {
+	 winW = document.documentElement.offsetWidth;
+	}
+	if (window.innerWidth && window.innerHeight) {
+	 winW = window.innerWidth;
+	}
+	return winW;
+	}
+
+
+function getscreenh()
+	{	
+	var winW = 640, winH = 460;
+	if (document.body && document.body.offsetWidth) {
+	 winH = document.body.offsetHeight;
+	}
+	if (document.compatMode=='CSS1Compat' &&
+		document.documentElement &&
+		document.documentElement.offsetWidth ) {
+	 winH = document.documentElement.offsetHeight;
+	}
+	if (window.innerWidth && window.innerHeight) {
+	 winH = window.innerHeight;
+	}
+	return winH;
+	}
+
+var sx;
+var sy;
+
+sx=getscreenw();
+sy=getscreenh();
+
 
     </script>
   </head>
@@ -53,20 +94,22 @@ function onResume()
   <body bgcolor=black>
   	
 
-<table cellspacing=0 cellpadding=0 width=100% height=500px>
-<tr><td>
-	<div style='position:relative; width:100%; border:1px solid red; height:100%; display:block' id='lefteye'>
-	<img src='zombie1.png' style='position:absolute; left:100px; top:50px; ' width=100px>
 
+	<div style='position:relative; width:100%; border:1px solid red; height:100px; display:block' id='lefteye'>
+		<img src='zombie1.png' style='position:absolute; left:100px; top:50px; ' width=100px>
 	</div>
-</td></tr>
-<tr>
-<td>
 
-	<div style='position:relative; width:100%; border:1px solid red;  height:100%; display:block;' id='righteye'>
-	<img src='zombie1.png' style='position:absolute; left:100px; top:30px; ' width=100px>
-
+	<div style='position:relative; width:100%; border:1px solid red;  height:100px; display:block;' id='righteye'>
+		<img src='zombie1.png' style='position:absolute; left:100px; top:30px; ' width=100px>
 	</div>
-</td></tr></table>
+<script>
+
+
+document.getElementById("lefteye").style.height=(sy/2)+"px";
+document.getElementById("righteye").style.height=(sy/2)+"px";
+
+
+</script>
+
 </body>
 </html>
