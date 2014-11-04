@@ -59,7 +59,8 @@ function onResume()
 	<img src='zombie1.png' style='position:absolute; left:100px; top:50px; '>
 
 	</div>
-</td>
+</td></tr>
+<tr>
 <td>
 
 	<div style='position:relative; width:100%; border:1px solid red;  height:100%; display:block;' id='righteye'>
