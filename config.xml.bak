@@ -19,7 +19,7 @@
 
 <preference name="Fullscreen" value="true" />
 
-<preference name="Orientation" value="portrait" />
+<preference name="Orientation" value="landscape" />
 <preference name="DisallowOverscroll" value="true"/>
 
     <author href="http://design.ge" email="uabashidze@gmail.com">
