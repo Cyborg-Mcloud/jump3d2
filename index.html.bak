@@ -97,8 +97,8 @@ sy=getscreenh();
 	a {text-decoration:none; color:white;}
   </style>
   <body bgcolor=black>
-  	<div style='position:relative; border:1px solid red;  display:block' id='lefteye'>
-<table width=100% cellspacing=0 cellpadding=0  height=100% border=1><tr><td align=center valign=bottom>
+  	<div style='position:relative;   display:block' id='lefteye'>
+<table width=100% cellspacing=0 cellpadding=0  height=100% border=0><tr><td align=center valign=bottom>
 
 	
 		<img src='http://design.ge/video/rightimg.php' id='leftimg'>
