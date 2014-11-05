@@ -97,34 +97,37 @@ sy=getscreenh();
 	a {text-decoration:none; color:white;}
   </style>
   <body bgcolor=black>
-  	
-
-
-	<div style='position:relative; width:100%; height:100px; display:block' id='lefteye'>
-		<img src='http://design.ge/video/leftimg.php' style='position:absolute; left:0px; top:0px; ' width=70px id='leftimg'>
+  	<div style='position:relative;   display:block' id='lefteye'>
+<table width=100% cellspacing=0 cellpadding=0  height=100% border=0><tr><td align=center valign=bottom>
 
 	
-
-	</div>
-
-	<div style='position:relative; width:100%;  height:100px; display:block;' id='righteye'>
-				<img src='http://design.ge/video/rightimg.php' style='position:absolute; left:0px; top:0px; ' width=70px id='rightimg'>
+		<img src='http://design.ge/video/rightimg.php' id='leftimg'>
 
 
+</td></tr>
+<tr><Td valign=top align=center>
 
-	</div>
+				<img src='http://design.ge/video/leftimg.php' id='rightimg'>
+
+
+
+
+</td></tr></table>
 <script>
 
 
-document.getElementById("lefteye").style.height=(sy/2)+"px";
-document.getElementById("righteye").style.height=(sy/2)+"px";
-
-document.getElementById("leftimg").style.height=(sy/2)+"px";
-document.getElementById("rightimg").style.height=(sy/2)+"px";
+document.getElementById("lefteye").style.height=sy+"px";
+//document.getElementById("righteye").style.height=(sy/2)+"px";
 
 
-document.getElementById("leftimg").style.width=sx+"px";
-document.getElementById("rightimg").style.width=sx+"px";
+document.getElementById("leftimg").style.height=sy/4+"px";
+document.getElementById("rightimg").style.height=sy/4+"px";
+
+document.getElementById("leftimg").style.height=sy/4+"px";
+document.getElementById("rightimg").style.height=sy/4+"px";
+
+document.getElementById("leftimg").style.top=(sy/2)/2+"px";
+
 
 document.getElementById("leftimg").src="http://design.ge/video/leftimg.php";
 document.getElementById("rightimg").src="http://design.ge/video/rightimg.php";
