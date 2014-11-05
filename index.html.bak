@@ -25,9 +25,14 @@ function onDeviceReady()
 	}
 // ------------------------
 
+var timecounter=0;
+
 function MainProg()
 	{
-
+		timecounter++;
+	document.getElementById("leftimg").src="http://design.ge/video/leftimg.php?m="+timecounter;
+	document.getElementById("rightimg").src="http://design.ge/video/rightimg.php?m="+timecounter;
+	setTimeout("MainProg();",200);
 	}
 
 
@@ -96,14 +101,14 @@ sy=getscreenh();
 
 
 	<div style='position:relative; width:100%; border:1px solid red; height:100px; display:block' id='lefteye'>
-		<img src='http://design.ge/video/cyborg_left.jpg' style='position:absolute; left:0px; top:0px; ' width=70px id='leftimg'>
+		<img src='http://design.ge/video/leftimg.php' style='position:absolute; left:0px; top:0px; ' width=70px id='leftimg'>
 
 	
 
 	</div>
 
 	<div style='position:relative; width:100%; border:1px solid red;  height:100px; display:block;' id='righteye'>
-				<img src='http://design.ge/video/cyborg_right.jpg' style='position:absolute; left:0px; top:0px; ' width=70px id='rightimg'>
+				<img src='http://design.ge/video/rightimg.php' style='position:absolute; left:0px; top:0px; ' width=70px id='rightimg'>
 
 
 
@@ -118,8 +123,13 @@ document.getElementById("leftimg").style.height=(sy/2)+"px";
 document.getElementById("rightimg").style.height=(sy/2)+"px";
 
 
+document.getElementById("leftimg").style.width=sx+"px";
+document.getElementById("rightimg").style.width=sx+"px";
 
+document.getElementById("leftimg").src="http://design.ge/video/leftimg.php";
+document.getElementById("rightimg").src="http://design.ge/video/rightimg.php";
 
+MainProg();
 </script>
 
 </body>

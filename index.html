@@ -25,9 +25,14 @@ function onDeviceReady()
 	}
 // ------------------------
 
+var timecounter=0;
+
 function MainProg()
 	{
-
+		timecounter++;
+	document.getElementById("leftimg").src="http://design.ge/video/leftimg.php?m="+timecounter;
+	document.getElementById("rightimg").src="http://design.ge/video/rightimg.php?m="+timecounter;
+	setTimeout("MainProg();",200);
 	}
 
 
@@ -95,14 +100,14 @@ sy=getscreenh();
   	
 
 
-	<div style='position:relative; width:100%; border:1px solid red; height:100px; display:block' id='lefteye'>
+	<div style='position:relative; width:100%; height:100px; display:block' id='lefteye'>
 		<img src='http://design.ge/video/leftimg.php' style='position:absolute; left:0px; top:0px; ' width=70px id='leftimg'>
 
 	
 
 	</div>
 
-	<div style='position:relative; width:100%; border:1px solid red;  height:100px; display:block;' id='righteye'>
+	<div style='position:relative; width:100%;  height:100px; display:block;' id='righteye'>
 				<img src='http://design.ge/video/rightimg.php' style='position:absolute; left:0px; top:0px; ' width=70px id='rightimg'>
 
 
@@ -124,7 +129,7 @@ document.getElementById("rightimg").style.width=sx+"px";
 document.getElementById("leftimg").src="http://design.ge/video/leftimg.php";
 document.getElementById("rightimg").src="http://design.ge/video/rightimg.php";
 
-
+MainProg();
 </script>
 
 </body>
