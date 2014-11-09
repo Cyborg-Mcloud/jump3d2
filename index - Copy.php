@@ -1,67 +1,8 @@
-<!DOCTYPE html>
+<? include "config.php";?>
+
 <html>
-  <head>
 
-  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Junkyard Wars</title>
-
-	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-
-	<script type="text/javascript" charset="utf-8" src="io.js"></script>
-	<script type="text/javascript" charset="utf-8" src="func.js"></script>
-	
-
-
-
-
-
-
-
-<script type="text/javascript" charset="utf-8">
-
-var myid=1;
-var maxrobo=4;
-
-document.addEventListener("deviceready", onDeviceReady, false);
-
-function onDeviceReady() 
-	{
-
-
-	checkConnection();
-
-//	document.addEventListener("pause", onPause, false);
-//	document.addEventListener("backbutton", onBackKeyDown, false);
-
-	}
-// ------------------------
-
-function MainProg()
-	{
-
-	}
-
-
-function onPause()
-	{
-
-	}
-
-function onResume() 
-	{
-
-
-	}
-
-
-
-    </script>
-  </head>
-  <style>
-	body {color:white; margin:0px; padding:0px;}
-	a {text-decoration:none; color:white;}
-  </style>
-  <body style='padding:0; border:0; margin:0;' bgcolor=black onKeyDown="bdown(event);"  onKeyUp="bup(event);">
+<body style='padding:0; border:0; margin:0;' bgcolor=black  onKeyDown="bdown(event);"  onKeyUp="bup(event);">
 <canvas width=1000px height=600px onmousewheel="MouseScroll(event);" style='float:left;width:1000xp;height:600px;' id='mycan' name='mycan'  onMouseDown="mdown(event);"  onMouseMove="mmove(event);" onMouseUp="mup(event);"></canvas>
 
 <div id='but1' style='background-color:red; text-align:center; padding-top:3px; font-size:24px; font-weight:bold; color:black; width:35px; height:30px; position:absolute; left:10px; top:10px;'>1</div>
@@ -73,6 +14,20 @@ function onResume()
 <div id='infodiv2' style='color:white; border:1px solid red; width:200px;'></div>
 </body>
 
+<?
+
+$r=mysql_query("SELECT * FROM users WHERE curmap='1' ORDER BY id ASC") or die(mysql_error());
+$maxbots=mysql_num_rows($r);
+
+$myid=1;
+
+if (isset($_GET["myid"])){$myid=$_GET["myid"];}
+
+echo "<script>var myid=$myid;
+var maxrobo=$maxbots;
+</script>";
+
+?>
 
 <script>
 
@@ -100,6 +55,7 @@ robvx[0]=0;
 robvy[0]=0;
 robdir[0]=0;
 robchsum[0]=0;
+
 
 var myrob=0;
 
@@ -147,24 +103,15 @@ function mdown(event)
 		}
 
 			if (curweapon==2)
-				{
-				if (gunangle<1)
-					{gunangle=1;}
-				else if (gunangle>=2.10 && gunangle<=3.14)
-					{gunangle=2.10;}
-				else if (gunangle<=4 && gunangle>=3.14)
-					{gunangle=4;}
-				else if (gunangle>=6.10 && gunangle<=6.28)
-					{gunangle=6.10;}
-				gunangle+=robrot[myrob];
-				fire_gun();
-				}
-			else if (curweapon==3)
 			{
-			if (gunangle>1 && gunangle<=3.14)
+			if (gunangle<1)
 				{gunangle=1;}
-			else if (gunangle<=5.28 && gunangle>=3.14)
-				{gunangle=5.28;}
+			else if (gunangle>=2.10 && gunangle<=3.14)
+				{gunangle=2.10;}
+			else if (gunangle<=4 && gunangle>=3.14)
+				{gunangle=4;}
+			else if (gunangle>=6.10 && gunangle<=6.28)
+				{gunangle=6.10;}
 			gunangle+=robrot[myrob];
 			fire_gun();
 			}
@@ -223,16 +170,6 @@ if (misdown==1)
 			fire_gun();
 			}
 
-		if (curweapon==3)
-			{
-			if (gunangle>1 && gunangle<=3.14)
-				{gunangle=1;}
-			else if (gunangle<=5.28 && gunangle>=3.14)
-				{gunangle=5.28;}
-			gunangle+=robrot[myrob];
-//			fire_gun();
-			}
-
 	}
 
 	mfx=parseInt((x+(camerax/10)*curzoom)/curzoom);
@@ -241,7 +178,7 @@ if (misdown==1)
 
 }
 
-
+var bullet=new Array();
 
 var bux=new Array();
 var buy=new Array();
@@ -255,11 +192,6 @@ var bua=new Array();
 var bualive=new Array();
 var bulife=new Array();
 
-var bullet=new Image();
-bullet.src="bullet.png";
-
-var fugas=new Image();
-fugas.src="fugas.png";
 
 var bcount=0;
 
@@ -267,67 +199,37 @@ function fire_gun()
 	{
 	var sdvig;
 	bua[bcount]=gunangle+ ( Math.random()*0.1-0.05);
-	
 	rdir=1;
-
-var damx=0;
-var damy=0;
-var daml=0;
-
-
 	for (i=0;i<items[myrob].length ;i++ )
 		{
-		if ((items[myrob][i][0]==4 && curweapon==2) || (curweapon==3 && items[myrob][i][0]==6))
+		if (items[myrob][i][0]==4)
 			{
 			if (robdir[myrob]==1)
-				{rdir=1;}
-			else {rdir=-1;}
+				{rdir=-1;}
+			else {rdir=1;}
 
 			if (robrot[myrob]<0 || robrot[myrob]>0)
 				{sdvig=curzoom/2;}
 			else {sdvig=0;}
-			bux[bcount]=robx[myrob];
-			buy[bcount]=roby[myrob];
+			bux[bcount]=robx[myrob]
+			buy[bcount]=roby[myrob]
 
-			damx=items[myrob][i][1]*10*rdir+5;
-			damy=items[myrob][i][2]*10-1;
-
-	document.getElementById("infodiv").innerHTML=robx[myrob]+ " - " + roby[myrob]+ " = " +damx+" - " +damy+ " <BR>";
-
-
-			damrx=Math.cos( robrot[myrob])*damx+Math.sin( robrot[myrob])*damy;
-			damry=Math.cos( robrot[myrob])*damy+Math.sin( robrot[myrob])*damx;
-
-			bux[bcount]+=damrx;
-			buy[bcount]+=damry;
-	document.getElementById("infodiv").innerHTML+=robx[myrob]+ " - " + roby[myrob]+ " = " +damrx+" - " +damry+ " <BR>";
-
-
+			bux[bcount]+=items[myrob][i][1]*10*rdir+5;
+			buy[bcount]+=items[myrob][i][2]*10-6;
 		
 			
-		//	buex[bcount]=bux[bcount]+Math.sin(bua[bcount])*200;
-			//buey[bcount]=buy[bcount]+Math.cos(bua[bcount])*200;
+			buex[bcount]=bux[bcount]+Math.sin(bua[bcount])*200;
+			buey[bcount]=buy[bcount]+Math.cos(bua[bcount])*200;
 		
 			
-		
+			document.getElementById("infodiv").innerHTML=robx[myrob]+ " - " + roby[myrob]+ " = " +bux[bcount]+" - " +buy[bcount];
 
 			i=100;
 			}
 		}
-		butype[bcount]=curweapon;
-		if (curweapon==2)
-			{
-			bulife[bcount]=35;
-			}
-		else if (curweapon==3)
-			{
-			bulife[bcount]=60;
-			}
-		bualive[bcount]=1;
-		bcount++;
-		if (bcount>100)
-			{bcount=0;
-			}
+		bulife[bcount]=16;
+	bualive[bcount]=1;
+bcount++;
 
 
 	}
@@ -352,13 +254,6 @@ mica[3]=new Image();
 mica[3].src="oil.png";
 
 
-
-
-var flag=new Image();
-flag.src="flag_full.png";
-
-var full_bar=new Image();
-full_bar.src="full_bar.png";
 
 var mica_grass=new Image();
 mica_grass.src="gnd_grass.png";
@@ -468,16 +363,8 @@ parts[5][0].src="box_left.png";
 parts[5][1]=new Image();
 parts[5][1].src="box_right.png";
 
-
-
-parts[6]=new Array();
-parts[6][0]=new Image();
-parts[6][0].src="puxa_box.png";
-parts[6][1]=new Image();
-parts[6][1].src="puxa_box.png";
-
 var foni=new Image();
-foni.src="background.jpg";
+foni.src="cat.jpg";
 
 
 var curzoom=25;
@@ -799,52 +686,53 @@ function Collideme(nx, ny)
 	
 
 	var colided=0;
-	for (i=0;i<items[myrob].length ;i++ )
+	for (i=1;i<items[myrob].length ;i++ )
 		{
-		if (items[myrob][i][0]!=1 && items[myrob][i][0]!=2)
+		
+		cx=nx+Math.cos(robrot[myrob])*10*items[myrob][i][1]+Math.sin(robrot[myrob])*9*items[myrob][i][2];
+		cy=ny+Math.sin(robrot[myrob])*10*items[myrob][i][1]+Math.cos(robrot[myrob])*9*items[myrob][i][2];
+		
+		
+
+		cxo=parseInt(cx/10);
+		cyo=parseInt(cy/10);
+
+		var c;
+
+	var dist;
+	
+		for (ii=cxo-2;ii<=cxo+2 ; ii++)
 			{
-			cx=nx+Math.cos(robrot[myrob])*10*items[myrob][i][1]+Math.sin(robrot[myrob])*9*items[myrob][i][2];
-			cy=ny+Math.sin(robrot[myrob])*10*items[myrob][i][1]+Math.cos(robrot[myrob])*9*items[myrob][i][2];			
-
-			cxo=parseInt(cx/10);
-			cyo=parseInt(cy/10);
-
-			var c;
-
-			var dist;
-		
-			for (ii=cxo-2;ii<=cxo+2 ; ii++)
+			for (iii=cyo-2;iii<=cyo+2 ;iii++ )
 				{
-				for (iii=cyo-2;iii<=cyo+2 ;iii++ )
+				if (svetebi[ii][iii]>0)
 					{
-					if (svetebi[ii][iii]>0)
-						{
 
-			
-						if (frot[ii][iii]==0)
-							{dist=10;}
-						if (frot[ii][iii]==1)
-							{dist=7;}
-						if (frot[ii][iii]==2)
-							{dist=7;}
-					
-						c=parseInt(Math.sqrt( Math.pow ( (cx-(ii*10)),2) +  Math.pow ( (cy-(iii*10)),2) ))
-
-						if (c<=dist)
-							{
 		
-							colided=1;
+					if (frot[ii][iii]==0)
+						{dist=10;}
+					if (frot[ii][iii]==1)
+						{dist=7;}
+					if (frot[ii][iii]==2)
+						{dist=7;}
+				
+					c=parseInt(Math.sqrt( Math.pow ( (cx-(ii*10)),2) +  Math.pow ( (cy-(iii*10)),2) ))
 
-							return false;
+					if (c<=dist)
+						{
+	
+						colided=1;
 
-							i=1000;
-							ii=1000;
-							iii=1000;
-							}
+						return false;
+
+						i=1000;
+						ii=1000;
+						iii=1000;
 						}
 					}
 				}
 			}
+
 
 		}
 	//	document.getElementById("infodiv2").innerHTML=colided;
@@ -1083,75 +971,7 @@ function fizika()
 			}
 		if (robsreqed==1)
 			{
-		var cona=0;
-
-		var bkx, bky;
-			for(i=0;i<bcount;i++)
-				{
-				if (bualive[i]==1)
-					{
-					bulife[i]=bulife[i]-1;
-					if (bulife[i]<=0)
-						{
-						bualive[i]=0;
-						}
-					bux[i]=bux[i]+6*Math.sin( bua[i]);
-					buy[i]=buy[i]+6*Math.cos( bua[i]);
-					
-					bkx=parseInt(bux[i]/10);
-					bky=parseInt(buy[i]/10);
-
-					if (bkx>0 && bkx<300 && bky>0 &&bky<70)
-						{
-						
-						if (svetebi[bkx][bky]>0)
-							{
-							bualive[i]=0;
-							radius=0;
-							if (butype[i]==3)
-								{radius=1;					}
-							for (ii=(bkx-radius);ii<=(bkx+radius) ;ii++ )
-								{
-							iii=bky;
-									if (butype[i]==2)
-										{
-										kubh[ii][iii]-=34;
-										}
-									else if (butype[i]==3)
-										{
-										kubh[ii][iii]-=101;
-										}
-									if (kubh[ii][iii]<=0)
-										{
-							
-										svetebi[ii][iii]=0;
-										dig_field(ii, iii);
-
-										}
-									
-								}
-
-							}
-
-						}
-					
-
-					if (butype[i]==2)
-						{					cona=0.02;					}
-					if (butype[i]==3)
-						{					cona=0.06;					}
-
-					if (bua[i]<3.14)
-						{
-						bua[i]=bua[i]+cona;
-						}	
-					else if (bua[i]>3.14)
-						{
-						bua[i]=bua[i]-cona;
-						}	
-					}
-				}
-
+		
 
 
 
@@ -1167,24 +987,33 @@ var items=new Array();
 
 function DrawWorld(segx1, segx2)
 	{
-	ctx.clearRect ( 0 , 0 , 1000 , 600 );
-
-
-	can.width = can.width;
-//document.getElementById("infodiv").innerHTML=-(300*10+camerax+500/curzoom)/curzoom+ " - "+camerax;
-	ctx.drawImage(foni,-200+(300*10-camerax+500/curzoom)/curzoom,-100+(70*10-cameray)/curzoom,1500,964);
-
-	segx1=parseInt(camerax/10);
-	segx2=(parseInt(camerax/10)+parseInt(1000/curzoom))+1 ;
-
-	if (segx2>(mapsize*2-2))
+		ctx.clearRect ( 0 , 0 , 1000 , 600 );
+	if (segx1==0 && segx2==0)
 		{
-		segx2=(mapsize*2-2);
+	
+		can.width = can.width;
+
+		ctx.drawImage(foni,0,0);
+
+		segx1=parseInt(camerax/10);
+		segx2=(parseInt(camerax/10)+parseInt(1000/curzoom)) ;
 		}
-	for (i=segx1;i<=segx2;i++ )
+	else
 		{
+	
+			
+		can.width = can.width;
+		ctx.drawImage(foni,0,0);
+
+		segx1=parseInt(camerax/10);
+		segx2=(parseInt(camerax/10)+parseInt(1000/curzoom)) ;
+		}
+	for (i=segx1;i<=segx2+1;i++ )
+		{
+	
 		for (ii=0;ii<70 ;ii++)
 			{
+
 			if ((i==0 || i==mapsize ) && svetebi[i][ii]>0)
 				{
 				ctx.drawImage(mica[svetebi[i][ii]],curzoom*i-(camerax/10)*curzoom,600-curzoom*ii+(cameray/10)*curzoom,curzoom,curzoom);
@@ -1230,20 +1059,19 @@ function DrawWorld(segx1, segx2)
 		{
 		if (bualive[i]==1)
 			{
-		
-			ctx.save(); 
-			ctx.translate(curzoom*(bux[i]/10)-(camerax/10)*curzoom, 600-curzoom*(buy[i]/10)+(cameray/10)*curzoom); 
-			ctx.translate(curzoom/2, curzoom/2); 
-			ctx.rotate(bua[i]); 
-			if (butype[i]==2)
+			bulife[i]=bulife[i]-1;
+			if (bulife[i]<=0)
 				{
-				ctx.drawImage(bullet,-curzoom/2,-curzoom/2,curzoom,curzoom);
+				bualive[i]=0;
 				}
-			else if (butype[i]==3)
-				{
-				ctx.drawImage(fugas,-curzoom/2,-curzoom/2,curzoom,curzoom);
-				}
-			ctx.restore();
+			 ctx.beginPath();
+		  ctx.moveTo(curzoom*(bux[i]/10)-(camerax/10)*curzoom,  600-curzoom*(buy[i]/10)+(cameray/10)*curzoom);
+		  ctx.lineTo(curzoom*(buex[i]/10)-(camerax/10)*curzoom+200, 600-curzoom*(buey[i]/10)+(cameray/10)*curzoom);
+		  ctx.lineWidth = 3;
+
+		  // set line color
+		  ctx.strokeStyle = '#ff0000';
+		  ctx.stroke();
 			}
 		}
 
@@ -1316,9 +1144,8 @@ else {rdir=1;}
 			
 
 
-
 		//	ctx.drawImage(parts[4][robdir[i]],-curzoom/4, -curzoom-curzoom-curzoom,curzoom,curzoom);
-
+	
 			
 			
 			if (myrob==i && misdown==1)
@@ -1329,10 +1156,10 @@ else {rdir=1;}
 					ctx.rotate(gunangle-1.57-robrot[i]);
 					ctx.drawImage(xeli_right,0 , -curzoom,curzoom*1.7,curzoom*1.7);
 					}
+			
 				}
 
 			ctx.restore();
-				ctx.drawImage(flag,150*curzoom,-200);
 			}
 		}
 	
@@ -1346,3 +1173,10 @@ else {rdir=1;}
 
 
 </html>
+
+
+<?
+
+
+
+?>

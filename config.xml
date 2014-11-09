@@ -2,25 +2,19 @@
 
 <widget xmlns     = "http://www.w3.org/ns/widgets"
 		xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.designge.jump3d"
+        id        = "com.designge.junkyardwars"
 	    versionCode="17" 
         version   = "1.0.1"
-		package="com.designge.jump3d"
+		package="com.designge.junkyardwars"
 		>
-    <name>Jump3D</name>
-	<icon src="jump_icon.png" />
+    <name>Junkyard Wars</name>
+	<icon src="tavi_left.png" />
 
 	<preference name="phonegap-version" value="3.6.3" />
     <description>
-     jump 3D game with kinekt elements
+    Junkyard Wars
     </description>
 	
-
-
-<preference name="Fullscreen" value="true" />
-
-<preference name="Orientation" value="portrait" />
-<preference name="DisallowOverscroll" value="true"/>
 
     <author href="http://design.ge" email="uabashidze@gmail.com">
         Cyborg-Mcloud
@@ -48,7 +42,7 @@
 <!--	<feature name="FileTransfer" value="org.apache.cordova.FileTransfer" />-->
 
 	<feature name="App">
-	  <param name="android-package" value="com.designge.jump3d"/>
+	  <param name="android-package" value="com.designge.junkyard"/>
 	</feature>
 	<!--
 <feature name="NetworkStatus">
@@ -72,5 +66,9 @@
 	<gap:platform name="ios" />
 	<gap:platform name="android" />
 	<gap:platform name="winphone" />-->
+
+
+
+<preference name="Orientation" value="landscape" />
 
 </widget>
