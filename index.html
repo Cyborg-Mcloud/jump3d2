@@ -13,6 +13,15 @@
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
+var leftbuf;
+var rightbuf;
+
+	leftbuf = new Image(); 
+	leftbuf.src =	"http://design.ge/video/leftimg.php?m="+timecounter;
+
+	rightbuf = new Image(); 
+	rightbuf.src =	"http://design.ge/video/rightimg.php?m="+timecounter;
+
 function onDeviceReady() 
 	{
 
@@ -30,9 +39,24 @@ var timecounter=0;
 function MainProg()
 	{
 		timecounter++;
-	document.getElementById("leftimg").src="http://design.ge/video/leftimg.php?m="+timecounter;
-	document.getElementById("rightimg").src="http://design.ge/video/rightimg.php?m="+timecounter;
-	setTimeout("MainProg();",200);
+
+	 if (typeof rightbuf.naturalWidth != "undefined" && rightbuf.naturalWidth > 0) 
+		{
+			document.getElementById("rightimg").src=rightbuf.src;
+		}
+	 if (typeof leftbuf.naturalWidth != "undefined" && leftbuf.naturalWidth > 0) 
+		{
+		document.getElementById("leftimg").src=leftbuf.src;
+		}
+	leftbuf = new Image(); 
+	leftbuf.src =	"http://design.ge/video/leftimg.php?m="+timecounter;
+
+	rightbuf = new Image(); 
+	rightbuf.src =	"http://design.ge/video/rightimg.php?m="+timecounter;
+
+
+	
+	setTimeout("MainProg();",100);
 	}
 
 
